@@ -102,5 +102,29 @@ The `makefile` is used to compile and build the project. It defines the instruct
 
 **Code:** [`makefile`](./makefile)
 
+
+
+## How to Use
+
+### Menu Options
+When you run the program, a menu will be presented with the following options:
+
+- **Add a Book**: Adds a new book to the library’s collection by capturing its details (title, author, etc.).
+- **Remove a Book**: Removes a book based on ID or title.
+- **Add a Borrower**: Registers a new borrower in the system.
+- **Issue a Book**: Issues a book to a registered borrower, marking it as unavailable.
+- **Return a Book**: Marks a book as returned, updating its availability in the system.
+
+### Input and Output
+- The system reads initial book and borrower data from CSV files (`booklist.csv`) and saves updated data back to these files at the end of the session.
+- User input is required through the CLI to perform operations like adding books or issuing them.
+
+## Future Enhancements
+
+- Integration with a GUI for easier management and user experience.
+- Expansion to handle multiple libraries and synchronize data between them.
+- Enhancing the system to handle overdue books and fines.
+
+
 ```bash
 
