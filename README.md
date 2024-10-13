@@ -1,85 +1,92 @@
 # Library Management System
 
-This repository contains the implementation of a **Library Management System (LMS)** that manages books, borrowers, and book transactions in a library. This system allows for book issuance, return tracking, and borrower management. It is written in C++ and is structured into several modular components, each focusing on a specific aspect of the system.
+This repository contains the implementation of a **Library Management System (LMS)** written in C++. The system manages books, borrowers, and book transactions within a library. It includes functionalities for importing/exporting book data, managing book categories, and handling borrower information.
 
 ## Features
 
-- Manage a library’s collection of books.
-- Track borrowers and their information.
-- Issue and return books.
-- Data persistence through CSV file handling for books and borrowers.
-- Custom data structures for optimized storage and retrieval.
+- Add, edit, remove books.
+- Borrow and return books.
+- Manage categories for books (such as genres or sections).
+- Export and import book data from/to CSV files.
+- List books by category and borrower.
+- Track current and past borrowers.
 
 ## Files and Structure
 
 ### 1. `main.cpp`
-This file serves as the entry point to the Library Management System. It manages the overall flow of the program, handling user interaction through a command-line interface (CLI). The menu allows users to interact with various functionalities of the system, such as adding books, borrowers, issuing, and returning books. Key functions include:
-
-- Displaying menu options.
-- Capturing user inputs to execute the corresponding actions.
-- Managing the high-level logic and orchestration of system components.
+This file serves as the entry point for the Library Management System. It handles user interaction via the command line and invokes the appropriate methods from the LCMS.
 
 **Code:** [`main.cpp`](./main.cpp)
 
 ---
 
 ### 2. `lcms.h` / `lcms.cpp`
-The **Library Core Management System** (LCMS) is the core class that coordinates the interaction between books, borrowers, and transactions. This is where the main operations for adding, removing, issuing, and returning books are implemented. The class includes methods such as:
+The **LCMS** class is the core of the system, responsible for managing books, borrowers, and categories. Key methods include:
 
-- `addBook()`: Adds a new book to the system.
-- `removeBook()`: Removes a book based on its ID or title.
-- `addBorrower()`: Registers a new borrower in the system.
-- `issueBook()`: Issues a book to a borrower by linking their ID to the book.
-- `returnBook()`: Marks a book as returned and updates its status.
-- `saveData()`: Saves the current library state (books and borrowers) to CSV files.
-- `loadData()`: Loads existing book and borrower data from CSV files.
+- `import()`: Imports books from a CSV file.
+- `exportData()`: Exports all books to a given file.
+- `findAll()`: Displays all books in a given category.
+- `findBook()`: Finds and displays a book by title.
+- `addBook()`: Adds a new book to the library.
+- `editBook()`: Edits details of an existing book.
+- `borrowBook()`: Issues a book to a borrower.
+- `returnBook()`: Processes the return of a borrowed book.
+- `removeBook()`: Removes a book from the catalog.
+- `listCurrentBorrowers()`: Lists the current borrowers of a book.
+- `listAllBorrowers()`: Lists all borrowers that have ever borrowed a book.
+- `listBooks()`: Lists all books borrowed by a specific borrower.
+- `addCategory()`: Adds a category to the catalog.
+- `findCategory()`: Finds a category in the catalog.
+- `removeCategory()`: Removes a category from the catalog.
+- `editCategory()`: Edits a category's name.
+- `list()`: Displays the entire catalog as a tree structure.
 
 **Code:** [`lcms.h`](./lcms.h) | [`lcms.cpp`](./lcms.cpp)
 
 ---
 
 ### 3. `borrower.h` / `borrower.cpp`
-This module handles all **borrower-related operations**, including:
+The **Borrower** class represents a borrower in the library system. Borrowers can borrow and return books, and the system tracks which books they have borrowed. Key methods include:
 
-- **Borrower Structure**: The class defines the borrower, including attributes like name, ID, contact information, and the books currently borrowed by them.
-- `addBorrower()`: Adds a new borrower to the system.
-- `getBorrower()`: Retrieves borrower information based on ID.
-- `displayBorrowers()`: Displays a list of all borrowers.
+- `listBooks()`: Lists all the books a borrower has borrowed.
 
 **Code:** [`borrower.h`](./borrower.h) | [`borrower.cpp`](./borrower.cpp)
 
 ---
 
 ### 4. `book.h` / `book.cpp`
-The **Book Module** manages the collection of books in the library. Key attributes of the book include:
+The **Book** class manages individual book information. Each book contains attributes such as title, author, ISBN, publication year, total copies, and available copies. Key methods include:
 
-- **Title**, **Author**, **ISBN**, **Publication Year**, and **Availability Status**.
-- The `book.cpp` file provides methods for handling book data, such as:
-  - `addBook()`: Adds a new book.
-  - `removeBook()`: Removes a book by its ID or title.
-  - `updateBookInfo()`: Updates details about a book.
-  - `displayBooks()`: Displays all books currently available in the system.
+- `display()`: Displays the details of a book.
 
 **Code:** [`book.h`](./book.h) | [`book.cpp`](./book.cpp)
 
 ---
 
 ### 5. `tree.h` / `tree.cpp`
-This part of the system implements a **Binary Search Tree (BST)** or other tree-based structure for efficiently storing and retrieving data about books and borrowers. Operations include:
+The **Tree** class manages the hierarchical structure of categories and subcategories in the library, along with their associated books. Key methods include:
 
-- **Insertion**, **deletion**, and **searching** for nodes based on specific keys (like book ID or borrower ID).
-- The tree structure ensures optimal performance for large datasets by providing efficient searching and sorting mechanisms.
+- `insert()`: Inserts a new category or subcategory into the catalog.
+- `remove()`: Removes a category from the catalog.
+- `createNode()`: Creates a new node (category).
+- `findBook()`: Finds a book in a specific category.
+- `removeBook()`: Removes a book from a category.
+- `printAll()`: Prints all books within a category and its subcategories.
+- `exportData()`: Exports book data from a specific category to a file.
+- `print()`: Prints the entire catalog as a tree structure.
 
 **Code:** [`tree.h`](./tree.h) | [`tree.cpp`](./tree.cpp)
 
 ---
 
 ### 6. `myvector.h`
-This file implements a **custom vector class**, similar to C++’s built-in `std::vector`. It provides:
+This file implements a custom **Vector** class that supports dynamic resizing and common operations such as:
 
-- **Dynamic resizing**: The vector automatically grows as elements are added.
-- **Efficient memory management**: Handling dynamic arrays with features like capacity management and size tracking.
-- **Operations like `push_back()`, `pop_back()`, and random access**: These operations allow for efficient management of collections of books or borrowers.
+- `push_back()`: Adds an element to the end of the vector.
+- `insert()`: Inserts an element at a specified position.
+- `erase()`: Removes an element from a specified position.
+- `at()`: Retrieves the element at a specified position.
+- `shrink_to_fit()`: Shrinks the vector's capacity to its current size.
 
 **Code:** [`myvector.h`](./myvector.h)
 
