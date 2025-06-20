@@ -1,6 +1,6 @@
 //============================================================================
 // Name         : book.h
-// Author       : Sebahadin Aman Denur 
+// Author       : Sebahadin  Denur 
 // Version      : 
 // Date Created : 0/5/04/2024
 // Date Modified:
